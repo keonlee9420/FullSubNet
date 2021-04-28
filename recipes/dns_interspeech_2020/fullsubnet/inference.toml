@@ -1,5 +1,5 @@
 [acoustics]
-sr = 16000
+sr = 22050
 n_fft = 512
 win_length = 512
 hop_length = 256
@@ -19,9 +19,10 @@ path = "dataset_inference.Dataset"
 [dataset.args]
 dataset_dir_list = [
     #    "/apdcephfs/share_976139/xianghao/Datasets_share_976139/DNS-INTERSPEECH-2020/datasets/test_set/synthetic/with_reverb/noisy",
-    "/apdcephfs/share_976139/xianghao/Datasets_share_976139/DNS-INTERSPEECH-2020/datasets/test_set/synthetic/no_reverb/noisy"
+    #    "/apdcephfs/share_976139/xianghao/Datasets_share_976139/DNS-INTERSPEECH-2020/datasets/test_set/synthetic/no_reverb/noisy",
+    "/ssd2/FullSubNet/sample",
 ]
-sr = 16000
+sr = 22050
 
 
 [model]

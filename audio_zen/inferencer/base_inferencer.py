@@ -2,6 +2,7 @@ import time
 from functools import partial
 from pathlib import Path
 
+from shutil import copyfile
 import librosa
 import numpy as np
 import soundfile as sf
@@ -126,9 +127,15 @@ class BaseInferencer:
 
         inference_args = self.inference_config["args"]
 
-        for noisy, name in tqdm(self.dataloader, desc="Inference"):
+        for noisy, name, noisy_file_path, dataset_dir in tqdm(self.dataloader, desc="Inference"):
             assert len(name) == 1, "The batch size of inference stage must 1."
             name = name[0]
+            noisy_file_path = noisy_file_path[0]
+            dataset_dir = dataset_dir[0]
+            out_path = Path(str(noisy_file_path).replace(str(dataset_dir), str(self.enhanced_dir)))
+            in_path_lab = Path(str(noisy_file_path).replace(".wav", ".lab"))
+            out_path_lab = Path(str(noisy_file_path).replace(str(dataset_dir), str(self.enhanced_dir)).replace(".wav", ".lab"))
+            prepare_empty_dir([out_path.parents[0]])
 
             enhanced = getattr(self, inference_type)(noisy.to(self.device), inference_args)
 
@@ -140,4 +147,6 @@ class BaseInferencer:
 
             # clnsp102_traffic_248091_3_snr0_tl-21_fileid_268 => clean_fileid_0
             # name = "clean_" + "_".join(name.split("_")[-2:])
-            sf.write(self.enhanced_dir / f"{name}.wav", enhanced, samplerate=self.acoustic_config["sr"])
+            sf.write(out_path, enhanced, samplerate=self.acoustic_config["sr"])
+
+            copyfile(in_path_lab, out_path_lab)
