@@ -20,7 +20,8 @@ path = "dataset_inference.Dataset"
 dataset_dir_list = [
     #    "/apdcephfs/share_976139/xianghao/Datasets_share_976139/DNS-INTERSPEECH-2020/datasets/test_set/synthetic/with_reverb/noisy",
     #    "/apdcephfs/share_976139/xianghao/Datasets_share_976139/DNS-INTERSPEECH-2020/datasets/test_set/synthetic/no_reverb/noisy",
-    "/ssd2/FullSubNet/sample",
+    #    "/ssd2/FullSubNet/sample",
+    "/ssd2/Conversational-TTS/raw_data/AIHub-MMV/clips",
 ]
 sr = 22050
 
